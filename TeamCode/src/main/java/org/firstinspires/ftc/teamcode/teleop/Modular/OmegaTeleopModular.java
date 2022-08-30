@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.teleop.NonModular;
+package org.firstinspires.ftc.teamcode.teleop.Modular;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -121,19 +121,6 @@ public abstract class OmegaTeleopModular extends OpMode {
         robot.drivetrain.backLeft.setPower(backLeftPower);
         robot.drivetrain.frontRight.setPower(frontRightPower);
         robot.drivetrain.backRight.setPower(backRightPower);
-
-//        if (gamepad1.left_trigger > 0.3) {
-//            // set final power values to motors
-//            robot.deviceManager.frontLeft.setPower(frontLeftPower);
-//            robot.deviceManager.backLeft.setPower(backLeftPower);
-//            robot.deviceManager.frontRight.setPower(frontRightPower);
-//            robot.deviceManager.backRight.setPower(backRightPower);
-//        } else {
-//            robot.deviceManager.frontLeft.setPower(SLOW_MULTIPLIER * frontLeftPower);
-//            robot.deviceManager.backLeft.setPower(SLOW_MULTIPLIER * backLeftPower);
-//            robot.deviceManager.frontRight.setPower(SLOW_MULTIPLIER * frontRightPower);
-//            robot.deviceManager.backRight.setPower(SLOW_MULTIPLIER * backRightPower);
-//        }
     }
 
     public void intake(){
@@ -145,12 +132,6 @@ public abstract class OmegaTeleopModular extends OpMode {
             robot.intake.stop();
         }
     }
-
-//    public void slides(){
-//        if(gamepad2.dpad_down){
-//            robot.slides.pickUp();
-//        }
-//    }
 
     public void tray() {
         if (gamepad2.b) {
