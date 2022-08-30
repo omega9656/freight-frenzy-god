@@ -7,8 +7,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 
-
-public abstract class OmegaTeleopSlowModular extends OpMode {
+public abstract class OmegaTeleop extends OpMode {
     ElapsedTime time = new ElapsedTime();
     Robot robot;
 
@@ -23,6 +22,7 @@ public abstract class OmegaTeleopSlowModular extends OpMode {
     }
 
     abstract public DriveMode getCurrentMode();
+    abstract public boolean isSlow();
 
     @Override
     public void init() {
@@ -33,23 +33,17 @@ public abstract class OmegaTeleopSlowModular extends OpMode {
     @Override
     public void loop() {
         intake();
-        drive(2, getCurrentMode());
+        drive(2, getCurrentMode(), isSlow());
         duckMech();
         //slides();
         dropHeight();
         down();
         tray();
-        telemetry.addData("front right", robot.drivetrain.frontRight.getPower());
-        telemetry.addData("front left", robot.drivetrain.frontLeft.getPower());
-        telemetry.addData("back right", robot.drivetrain.backRight.getPower());
-        telemetry.addData("back left", robot.drivetrain.backLeft.getPower());
-        telemetry.addData("duck mech velo: ", robot.duckMech.duckMech.getVelocity(AngleUnit.DEGREES));
-        telemetry.addData("slides pos", robot.slides.slidesRight.getCurrentPosition());
-        telemetry.addData("tray pos", robot.trayTilt.trayTilt.getPosition());
-        telemetry.addData("intake velo", robot.intake.intake.getVelocity(AngleUnit.DEGREES));
+
+        showTeleInfo();
     }
 
-    public void drive(double strafe, DriveMode driveMode) {
+    public void drive(double strafe, DriveMode driveMode, boolean slowed) {
         // https://gm0.copperforge.cc/en/stable/docs/software/mecanum-drive.html
         // https://www.chiefdelphi.com/t/paper-mecanum-and-omni-kinematic-and-force-analysis/106153/5 (3rd paper)
 
@@ -70,17 +64,20 @@ public abstract class OmegaTeleopSlowModular extends OpMode {
         double frontRightPower = vertical - horizontal - rotate;
         double backRightPower = vertical + horizontal - rotate;
 
-        if(gamepad1.left_trigger > 0.5) {
-            slow_multiplier = 1;
-        }
-        else {
-            slow_multiplier = 0.3;
-        }
+        if(isSlow()){
+            if(gamepad1.left_trigger > 0.5) {
+                slow_multiplier = 1;
+            }
+            else {
+                slow_multiplier = 0.3;
+            }
 
-        frontLeftPower *= slow_multiplier;
-        backLeftPower *= slow_multiplier;
-        frontRightPower *= slow_multiplier;
-        backRightPower *= slow_multiplier;
+            frontLeftPower *= slow_multiplier;
+            backLeftPower *= slow_multiplier;
+            frontRightPower *= slow_multiplier;
+            backRightPower *= slow_multiplier;
+
+        }
 
         // if there is a power level that is out of range
         if (
@@ -167,7 +164,7 @@ public abstract class OmegaTeleopSlowModular extends OpMode {
         if(gamepad2.right_bumper){
             time.reset();
             while(time.milliseconds() < 2000){
-                drive(2, getCurrentMode());
+                drive(2, getCurrentMode(), isSlow());
                 robot.duckMech.duckMech.setVelocity(robot.duckMech.INITIAL_VELO + (time.seconds() * robot.duckMech.ACCEL), AngleUnit.DEGREES);
             }
             robot.duckMech.duckMech.setVelocity(0);
@@ -193,15 +190,26 @@ public abstract class OmegaTeleopSlowModular extends OpMode {
         if(gamepad2.dpad_down){
             time.reset();
             while(time.milliseconds() < 1000){
-                drive(2, getCurrentMode());
+                drive(2, getCurrentMode(), isSlow());
                 robot.trayTilt.tilt();
             }
             robot.trayTilt.parallel();
             robot.slides.pickUp();
             while(robot.slides.slidesRight.getCurrentPosition()-20 > robot.slides.slidesRight.getTargetPosition()){
-                drive(2, getCurrentMode());
+                drive(2, getCurrentMode(), isSlow());
             }
             robot.trayTilt.ready();
         }
+    }
+
+    public void showTeleInfo(){
+        telemetry.addData("front right", robot.drivetrain.frontRight.getPower());
+        telemetry.addData("front left", robot.drivetrain.frontLeft.getPower());
+        telemetry.addData("back right", robot.drivetrain.backRight.getPower());
+        telemetry.addData("back left", robot.drivetrain.backLeft.getPower());
+        telemetry.addData("duck mech velo: ", robot.duckMech.duckMech.getVelocity(AngleUnit.DEGREES));
+        telemetry.addData("slides pos", robot.slides.slidesRight.getCurrentPosition());
+        telemetry.addData("tray pos", robot.trayTilt.trayTilt.getPosition());
+        telemetry.addData("intake velo", robot.intake.intake.getVelocity(AngleUnit.DEGREES));
     }
 }
