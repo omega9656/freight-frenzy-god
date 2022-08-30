@@ -13,7 +13,8 @@ public class DeviceManager {
     public DcMotorEx backLeft;
     public DcMotorEx frontLeft;
 
-    public DcMotorEx slides;
+    public DcMotorEx slidesLeft;
+    public DcMotorEx slidesRight;
 
     public DcMotorEx intake;
 
@@ -42,7 +43,9 @@ public class DeviceManager {
             frontLeft = hardwareMap.get(DcMotorEx.class, "front_left");
         }
 
-        slides = hardwareMap.get(DcMotorEx.class, "slides");
+        slidesLeft = hardwareMap.get(DcMotorEx.class, "left_slides");
+        slidesRight = hardwareMap.get(DcMotorEx.class, "right_slides");
+
         trayTilt = hardwareMap.get(Servo.class, "tray_tilt");
 
         intake = hardwareMap.get(DcMotorEx.class, "intake");

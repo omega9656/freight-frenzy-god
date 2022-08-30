@@ -41,7 +41,7 @@ public abstract class OmegaTeleopModular extends OpMode {
         telemetry.addData("back right", robot.drivetrain.backRight.getPower());
         telemetry.addData("back left", robot.drivetrain.backLeft.getPower());
         telemetry.addData("duck mech velo: ", robot.duckMech.duckMech.getVelocity(AngleUnit.DEGREES));
-        telemetry.addData("slides pos", robot.slides.slides.getCurrentPosition());
+        telemetry.addData("slides pos", robot.slides.slidesRight.getCurrentPosition());
         telemetry.addData("tray pos", robot.trayTilt.trayTilt.getPosition());
         telemetry.addData("intake velo", robot.intake.intake.getVelocity(AngleUnit.DEGREES));
     }
@@ -193,7 +193,7 @@ public abstract class OmegaTeleopModular extends OpMode {
             }
             robot.trayTilt.parallel();
             robot.slides.pickUp();
-            while(robot.slides.slides.getCurrentPosition()-20 > robot.slides.slides.getTargetPosition()){
+            while(robot.slides.slidesRight.getCurrentPosition()-20 > robot.slides.slidesRight.getTargetPosition()){
                 drive(2, getCurrentMode());
             }
             robot.trayTilt.ready();

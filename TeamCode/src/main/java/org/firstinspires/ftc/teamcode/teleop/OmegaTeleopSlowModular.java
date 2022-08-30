@@ -44,7 +44,7 @@ public abstract class OmegaTeleopSlowModular extends OpMode {
         telemetry.addData("back right", robot.drivetrain.backRight.getPower());
         telemetry.addData("back left", robot.drivetrain.backLeft.getPower());
         telemetry.addData("duck mech velo: ", robot.duckMech.duckMech.getVelocity(AngleUnit.DEGREES));
-        telemetry.addData("slides pos", robot.slides.slides.getCurrentPosition());
+        telemetry.addData("slides pos", robot.slides.slidesRight.getCurrentPosition());
         telemetry.addData("tray pos", robot.trayTilt.trayTilt.getPosition());
         telemetry.addData("intake velo", robot.intake.intake.getVelocity(AngleUnit.DEGREES));
     }
@@ -124,19 +124,6 @@ public abstract class OmegaTeleopSlowModular extends OpMode {
         robot.drivetrain.backLeft.setPower(backLeftPower);
         robot.drivetrain.frontRight.setPower(frontRightPower);
         robot.drivetrain.backRight.setPower(backRightPower);
-
-//        if (gamepad1.left_trigger > 0.3) {
-//            // set final power values to motors
-//            robot.deviceManager.frontLeft.setPower(frontLeftPower);
-//            robot.deviceManager.backLeft.setPower(backLeftPower);
-//            robot.deviceManager.frontRight.setPower(frontRightPower);
-//            robot.deviceManager.backRight.setPower(backRightPower);
-//        } else {
-//            robot.deviceManager.frontLeft.setPower(SLOW_MULTIPLIER * frontLeftPower);
-//            robot.deviceManager.backLeft.setPower(SLOW_MULTIPLIER * backLeftPower);
-//            robot.deviceManager.frontRight.setPower(SLOW_MULTIPLIER * frontRightPower);
-//            robot.deviceManager.backRight.setPower(SLOW_MULTIPLIER * backRightPower);
-//        }
     }
 
     public void intake(){
@@ -165,12 +152,6 @@ public abstract class OmegaTeleopSlowModular extends OpMode {
         }
 
     }
-
-//    public void slides(){
-//        if(gamepad2.dpad_down){
-//            robot.slides.pickUp();
-//        }
-//    }
 
     public void tray() {
         if (gamepad2.b) {
@@ -217,7 +198,7 @@ public abstract class OmegaTeleopSlowModular extends OpMode {
             }
             robot.trayTilt.parallel();
             robot.slides.pickUp();
-            while(robot.slides.slides.getCurrentPosition()-20 > robot.slides.slides.getTargetPosition()){
+            while(robot.slides.slidesRight.getCurrentPosition()-20 > robot.slides.slidesRight.getTargetPosition()){
                 drive(2, getCurrentMode());
             }
             robot.trayTilt.ready();

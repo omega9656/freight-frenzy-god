@@ -5,7 +5,9 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class Slides {
-    public DcMotorEx slides;
+    public DcMotorEx slidesRight;
+    public DcMotorEx slidesLeft;
+
     Position currentPos;
 
     public static final double maxPower = 0.6;
@@ -25,22 +27,32 @@ public class Slides {
     }
 
     public Slides(DeviceManager deviceManager){
-        slides = deviceManager.slides;
+        slidesRight = deviceManager.slidesRight;
+        slidesLeft = deviceManager.slidesLeft;
 
-        slides.setPower(maxPower);
+        slidesRight.setPower(maxPower);
+        slidesLeft.setPower(maxPower);
 
-        slides.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        slides.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        slides.setDirection(DcMotorSimple.Direction.REVERSE);
+        slidesRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slidesRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        slidesRight.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        slidesLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slidesLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        slidesLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // sets default position
-        slides.setTargetPosition(0);
+        slidesRight.setTargetPosition(0);
+        slidesLeft.setTargetPosition(0);
     }
 
 
     public void run(Position position){
-        slides.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slides.setTargetPosition(position.armPosition);
+        slidesRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slidesRight.setTargetPosition(position.armPosition);
+
+        slidesLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slidesLeft.setTargetPosition(position.armPosition);
 
         // updates the arm position to where it is currently
         currentPos = position;
