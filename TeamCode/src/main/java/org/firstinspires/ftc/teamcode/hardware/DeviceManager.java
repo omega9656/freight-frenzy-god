@@ -46,11 +46,11 @@ public class DeviceManager {
         slidesLeft = hardwareMap.get(DcMotorEx.class, "left_slides");
         slidesRight = hardwareMap.get(DcMotorEx.class, "right_slides");
 
-        trayTilt = hardwareMap.get(Servo.class, "tray_tilt");
+        //trayTilt = hardwareMap.get(Servo.class, "tray_tilt");
 
-        intake = hardwareMap.get(DcMotorEx.class, "intake");
+        //intake = hardwareMap.get(DcMotorEx.class, "intake");
 
-        duckMech = hardwareMap.get(DcMotorEx.class, "duck_mech");
+        //duckMech = hardwareMap.get(DcMotorEx.class, "duck_mech");
 
     }
 

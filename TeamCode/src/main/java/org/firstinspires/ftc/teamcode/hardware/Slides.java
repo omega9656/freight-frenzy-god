@@ -14,15 +14,17 @@ public class Slides {
 
     // 806 1st
     public enum Position {
-        DROP_OFF_HIGH(1530),
-        DROP_OFF_MIDDLE(1128),
-        DROP_OFF_BOTTOM(806),
-        PICKUP(0); //picking up game elements
+        DROP_OFF_HIGH(1600, -1600),
+        DROP_OFF_MIDDLE(800, -800),
+        DROP_OFF_BOTTOM(400, -400),
+        PICKUP(0, 0); //picking up game elements
 
-        public int armPosition;
+        public int leftArmPosition;
+        public int rightArmPosition;
 
-        Position(int armPosition){
-            this.armPosition = armPosition;
+        Position(int leftArmPosition, int rightArmPosition){
+            this.leftArmPosition = leftArmPosition;
+            this.rightArmPosition = rightArmPosition;
         }
     }
 
@@ -49,10 +51,10 @@ public class Slides {
 
     public void run(Position position){
         slidesRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slidesRight.setTargetPosition(position.armPosition);
+        slidesRight.setTargetPosition(position.rightArmPosition);
 
         slidesLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slidesLeft.setTargetPosition(position.armPosition);
+        slidesLeft.setTargetPosition(position.leftArmPosition);
 
         // updates the arm position to where it is currently
         currentPos = position;

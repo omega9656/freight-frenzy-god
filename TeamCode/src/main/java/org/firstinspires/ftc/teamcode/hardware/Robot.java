@@ -36,17 +36,9 @@ public class Robot {
             drivetrain = new Drivetrain(deviceManager);
         }
 
-        intake = new Intake(deviceManager);
+        //intake = new Intake(deviceManager);
         slides = new Slides(deviceManager);
-        duckMech = new DuckMech(deviceManager);
-        trayTilt = new TrayTilt(deviceManager, autoRunning);
-    }
-
-    public double getWorldXPosition() {
-        return worldXPosition;
-    }
-
-    public double getWorldYPosition() {
-        return worldYPosition;
+        //duckMech = new DuckMech(deviceManager);
+        //trayTilt = new TrayTilt(deviceManager, autoRunning);
     }
 }
