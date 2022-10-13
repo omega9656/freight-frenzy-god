@@ -20,8 +20,13 @@ public class DeviceManager {
 
     public DcMotorEx duckMech;
 
+    public Servo horLeft;
+    public Servo horRight;
+
+    public Servo rightTrayTilt;
+    public Servo leftTrayTilt;
+
     public HardwareMap hardwareMap;
-    public Servo trayTilt;
 
     /***
      *
@@ -46,11 +51,13 @@ public class DeviceManager {
         slidesLeft = hardwareMap.get(DcMotorEx.class, "left_slides");
         slidesRight = hardwareMap.get(DcMotorEx.class, "right_slides");
 
-        //trayTilt = hardwareMap.get(Servo.class, "tray_tilt");
+        horLeft = hardwareMap.get(Servo.class, "left_extension");
+        horRight = hardwareMap.get(Servo.class, "right_extension");
 
-        //intake = hardwareMap.get(DcMotorEx.class, "intake");
+        leftTrayTilt = hardwareMap.get(Servo.class, "left_tray");
+        rightTrayTilt = hardwareMap.get(Servo.class, "right_tray");
 
-        //duckMech = hardwareMap.get(DcMotorEx.class, "duck_mech");
+        intake = hardwareMap.get(DcMotorEx.class, "intake");
 
     }
 

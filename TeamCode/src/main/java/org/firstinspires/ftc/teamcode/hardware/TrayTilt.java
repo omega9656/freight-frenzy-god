@@ -5,7 +5,8 @@ import android.content.pm.SharedLibraryInfo;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class TrayTilt {
-    public Servo trayTilt;
+    public Servo rightTrayTilt;
+    public Servo leftTrayTilt;
     Position currentMode;
 
 //    public static double degreesToServoPos(double angle) {
@@ -29,18 +30,15 @@ public class TrayTilt {
     }
 
     public TrayTilt(DeviceManager deviceManager, boolean autoIsRunning){
-        trayTilt = deviceManager.trayTilt;
-        trayTilt.setDirection(Servo.Direction.REVERSE);
-        if(autoIsRunning) {
-            trayTilt.setPosition(Position.SLIDING.tiltPosition);
-        }
-        else {
-            trayTilt.setPosition(Position.INTAKING.tiltPosition);
-        }
+        rightTrayTilt = deviceManager.rightTrayTilt;
+        leftTrayTilt = deviceManager.leftTrayTilt;
+
+        leftTrayTilt.setDirection(Servo.Direction.REVERSE);
     }
 
     public void run(Position position){
-        trayTilt.setPosition(position.tiltPosition);
+        rightTrayTilt.setPosition(position.tiltPosition);
+        leftTrayTilt.setPosition(position.tiltPosition);
         currentMode = position;
     }
 

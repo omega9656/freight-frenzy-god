@@ -13,9 +13,7 @@ public class Robot {
     public DuckMech duckMech;
     public TrayTilt trayTilt;
     public Intake intake;
-
-    public double worldXPosition;
-    public double worldYPosition;
+    public HorizontalExtension horizontalExtension;
 
     /***
      * takes hardware map from OpMode and creates deviceManager object
@@ -36,9 +34,11 @@ public class Robot {
             drivetrain = new Drivetrain(deviceManager);
         }
 
-        //intake = new Intake(deviceManager);
         slides = new Slides(deviceManager);
+        horizontalExtension = new HorizontalExtension(deviceManager);
+
+        intake = new Intake(deviceManager);
         //duckMech = new DuckMech(deviceManager);
-        //trayTilt = new TrayTilt(deviceManager, autoRunning);
+        trayTilt = new TrayTilt(deviceManager, autoRunning);
     }
 }

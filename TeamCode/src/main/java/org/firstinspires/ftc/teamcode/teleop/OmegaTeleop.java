@@ -209,7 +209,6 @@ public abstract class OmegaTeleop extends OpMode {
         telemetry.addData("back left", robot.drivetrain.backLeft.getPower());
         telemetry.addData("duck mech velo: ", robot.duckMech.duckMech.getVelocity(AngleUnit.DEGREES));
         telemetry.addData("slides pos", robot.slides.slidesRight.getCurrentPosition());
-        telemetry.addData("tray pos", robot.trayTilt.trayTilt.getPosition());
         telemetry.addData("intake velo", robot.intake.intake.getVelocity(AngleUnit.DEGREES));
     }
 }
